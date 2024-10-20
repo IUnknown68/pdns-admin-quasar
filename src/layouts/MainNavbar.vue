@@ -1,10 +1,12 @@
 <template>
   <q-toolbar>
     <q-btn
-      dense
       flat
+      dense
       round
-      icon="arrow_back"
+      icon="menu"
+      aria-label="Menu"
+      @click="$emit('toggleLeftDrawer')"
     />
     <q-toolbar-title>
       {{$t('appTitle')}}
