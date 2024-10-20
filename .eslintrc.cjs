@@ -68,6 +68,7 @@ module.exports = {
     'max-classes-per-file': 'off',
     'spaced-comment': 'off',
     'no-unreachable': 'warn',
+    'no-await-in-loop': 'off',
 
     'import/first': 'off',
     'import/named': 'error',

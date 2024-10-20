@@ -1,33 +1,25 @@
 <template>
   <q-page class="q-pa-md flex justify-center items-start">
-    <q-banner v-if="!servers.length" rounded class="bg-orange text-white">
-      {{$t('servers.noneFound')}}
-    </q-banner>
-    <ServerList
-      v-else
-      flat
-      bordered
-      class="container-520"
-      :servers="servers"
-    />
+    <h1>ServerPage</h1>
   </q-page>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
+import { useRoute } from 'vue-router';
 import usePdnsServer from 'lib/usePdnsServer';
-import ServerList from 'components/ServerList.vue';
 
 //------------------------------------------------------------------------------
 export default defineComponent({
-  name: 'IndexPage',
+  name: 'ServerPage',
 
   components: {
-    ServerList,
   },
 
   setup() {
     const { servers, lastError } = usePdnsServer();
+    const route = useRoute();
+    console.log(route);
     return {
       servers,
       lastError,

@@ -6,7 +6,7 @@
       </div>
 
       <div class="text-h2" style="opacity:.4">
-        Oops. Nothing here...
+        {{$t('error.pageNotFound')}}
       </div>
 
       <q-btn
@@ -15,7 +15,7 @@
         text-color="blue"
         unelevated
         to="/"
-        label="Go Home"
+        :label="$t('label.goHome')"
         no-caps
       />
     </div>
@@ -25,6 +25,7 @@
 <script>
 import { defineComponent } from 'vue';
 
+//------------------------------------------------------------------------------
 export default defineComponent({
   name: 'ErrorNotFound',
 });

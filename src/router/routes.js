@@ -1,6 +1,8 @@
 import MainLayout from 'layouts/MainLayout.vue';
 import AboutPage from 'pages/AboutPage.vue';
 import IndexPage from 'pages/IndexPage.vue';
+import SettingsPage from 'pages/SettingsPage.vue';
+import ServerPage from 'pages/ServerPage.vue';
 
 import ErrorNotFound from 'pages/ErrorNotFound.vue';
 
@@ -10,11 +12,30 @@ const routes = [
     component: MainLayout,
     children: [
       {
+        path: '/server/:id',
+        name: 'server',
+        component: ServerPage,
+        meta: {
+          title: 'servers.title',
+          icon: 'dns',
+          hide: true,
+        },
+      },
+      {
+        path: '/settings',
+        name: 'settings',
+        component: SettingsPage,
+        meta: {
+          title: 'settings.title',
+          icon: 'settings',
+        },
+      },
+      {
         path: '/about',
         name: 'about',
         component: AboutPage,
         meta: {
-          title: 'about',
+          title: 'about.title',
           icon: 'info',
         },
       },
@@ -23,7 +44,7 @@ const routes = [
         name: 'home',
         component: IndexPage,
         meta: {
-          title: 'dashboard',
+          title: 'dashboard.title',
           icon: 'dashboard',
           exact: true,
         },
@@ -43,6 +64,7 @@ export const menu = [...routes[0].children].reverse().map((route) => ({
   title: route.meta.title,
   icon: route.meta.icon,
   exact: route.meta.exact,
+  hide: route.meta.hide,
   name: route.name,
 }));
 

@@ -1,37 +1,20 @@
 import useReactive from 'lib/useReactive';
-
-//import createStorage from 'lib/storage';
-//
-//
-//const DB_OPTIONS = {
-//  async upgrade(/*...args*/) {
-//    // Upgrade stores
-//  },
-//};
-//
-//const DB_NAME = 'audiobooks';
-//const DB_VERSION = 1;
-
-// eslint-disable-next-line no-promise-executor-return
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+import usePdnsServer from 'lib/usePdnsServer';
+import usePdnsServerConfig from 'lib/usePdnsServerConfig';
+import { doModal } from 'components/ServerConfigDialog.vue';
 
 /* eslint-disable no-console */
 const APP_DEFAULTS = {
   loaded: false,
   error: null,
   load: async () => {
-    await delay(1000);
+    const { serverConfigValid } = usePdnsServerConfig();
+    const { loadServers } = usePdnsServer();
 
-    // if (typeof createStorage.init === 'function') {
-    //   console.log('Init DB...');
-    //   await createStorage.init(DB_NAME, DB_VERSION, DB_OPTIONS);
-    //   console.log('OK.');
-    // }
-
-    //console.log('Loading books...');
-    //const { loadAllBooks } = useBooks();
-    //await loadAllBooks();
-    //console.log('OK.');
+    while (!serverConfigValid.value) {
+      await doModal(false);
+    }
+    await loadServers();
   },
 };
 

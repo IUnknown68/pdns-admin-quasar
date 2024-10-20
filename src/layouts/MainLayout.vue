@@ -9,7 +9,7 @@
       v-model="leftDrawerOpen"
       bordered
     >
-      <MainNavbarLeft />
+      <MainSidebarLeft />
     </q-drawer>
 
     <q-page-container>
@@ -25,7 +25,7 @@ import {
 } from '@vueuse/core';
 
 import MainNavbar from './MainNavbar.vue';
-import MainNavbarLeft from './MainNavbarLeft.vue';
+import MainSidebarLeft from './MainSidebarLeft.vue';
 
 //------------------------------------------------------------------------------
 export default defineComponent({
@@ -33,7 +33,7 @@ export default defineComponent({
 
   components: {
     MainNavbar,
-    MainNavbarLeft,
+    MainSidebarLeft,
   },
 
   setup() {

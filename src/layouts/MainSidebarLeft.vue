@@ -22,6 +22,7 @@
 <script>
 import {
   defineComponent,
+  computed,
 } from 'vue';
 
 import {
@@ -30,11 +31,12 @@ import {
 
 //------------------------------------------------------------------------------
 export default defineComponent({
-  name: 'MainNavbarLeft',
+  name: 'MainSidebarLeft',
 
   setup() {
+    const visibleMenuItems = computed(() => menu.filter((item) => !item.hide));
     return {
-      menu,
+      menu: visibleMenuItems,
     };
   },
 });

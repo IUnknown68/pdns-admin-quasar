@@ -31,8 +31,8 @@ module.exports = configure((ctx) => {
     port,
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:8003',
-        ws: true,
+        target: 'http://dev.seiberspace.de:8081/',
+        secure: false,
       },
     },
   };
@@ -142,7 +142,12 @@ module.exports = configure((ctx) => {
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
     framework: {
-      config: {},
+      config: {
+        loadingBar: {
+          position: 'bottom',
+          size: '10px',
+        },
+      },
 
       // iconSet: 'material-icons', // Quasar icon set
       // lang: 'en-US', // Quasar language pack
@@ -158,6 +163,7 @@ module.exports = configure((ctx) => {
       plugins: [
         'Dialog',
         'Notify',
+        'LoadingBar',
       ],
     },
 

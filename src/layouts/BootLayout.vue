@@ -3,7 +3,7 @@
     <q-page-container>
       <q-page class="flex flex-center">
         <q-banner v-if="app.error" class="text-white bg-red">
-          {{message}}
+          {{$t(message)}}
           <template v-slot:action>
             <q-btn
               flat
