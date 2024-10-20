@@ -1,7 +1,7 @@
-// This is just an example,
-// so you can safely delete all default props below
-
 export default {
-  failed: 'Action failed',
-  success: 'Action was successful'
-}
+  appTitle: 'Audiobooks',
+  darkMode: 'Dark Mode',
+  loadingData: 'Loading app...',
+  about: 'Info',
+  version: 'Version',
+};

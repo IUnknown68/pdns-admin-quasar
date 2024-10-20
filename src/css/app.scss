@@ -1,1 +1,64 @@
+@use 'sass:color';
 // app global css in SCSS form
+.gap-xs {
+  gap: 4px;
+}
+
+.gap-sm {
+  gap: 8px;
+}
+
+.gap-md {
+  gap: 16px;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.container-340 {
+  width: 340px;
+  max-width: 100%;
+}
+
+.body--dark {
+  a.link,
+  a.link:hover,
+  a.link:active,
+  a.link:visited {
+    color: color.adjust($accent, $lightness: 10%);
+  }
+  a.link:hover {
+    color: color.adjust($accent, $lightness: 30%);
+  }
+}
+
+.body--light {
+  a.link,
+  a.link:hover,
+  a.link:active,
+  a.link:visited {
+    color: color.adjust($accent, $lightness: -10%);
+  }
+  a.link:hover {
+    color: color.adjust($accent, $lightness: -30%);
+  }
+}
+
+a.link.link-external,
+a.link[target="_blank"] {
+  &:after {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    line-height: 1em;
+    margin-left: 4px;
+    transform: translateY(3px);
+    content: "open_in_new";
+  }
+}
+
+.main-navbar {
+  transition: background-color 1s ease-out;
+}

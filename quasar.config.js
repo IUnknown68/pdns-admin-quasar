@@ -10,10 +10,44 @@
 
 /* eslint func-names: 0 */
 /* eslint global-require: 0 */
+const { mergeConfig } = require('vite');
 const { configure } = require('quasar/wrappers');
 const path = require('path');
 
-module.exports = configure(function (/* ctx */) {
+const {
+  version,
+  description,
+  productName,
+  author,
+} = require('./package.json');
+
+module.exports = configure((ctx) => {
+  const port = ctx.mode.ssr ? 8922 : 8921;
+
+  // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
+  const devServer = {
+    https: false,
+    open: false,
+    port,
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:8003',
+        ws: true,
+      },
+    },
+  };
+
+  if (process.env.USE_SEIBERSPACE) {
+    devServer.host = '0.0.0.0';
+    devServer.hmr = {
+      host: `${port}.intern.seiberspace.de`,
+      clientPort: 443,
+      protocol: 'wss',
+    };
+    devServer.public = `https://${port}.intern.seiberspace.de`;
+    devServer.allowedHosts = [`${port}.intern.seiberspace.de`];
+  }
+
   return {
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
     // preFetch: true,
@@ -23,12 +57,11 @@ module.exports = configure(function (/* ctx */) {
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
     boot: [
       'i18n',
-      'axios',
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
     css: [
-      'app.scss'
+      'app.scss',
     ],
 
     // https://github.com/quasarframework/quasar/tree/dev/extras
@@ -43,16 +76,23 @@ module.exports = configure(function (/* ctx */) {
 
       'roboto-font', // optional, you are not bound to it
       'material-icons', // optional, you are not bound to it
+      'material-symbols-outlined',
     ],
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
     build: {
       target: {
-        browser: [ 'es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1' ],
-        node: 'node20'
+        browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
+        node: 'node20',
+      },
+      env: {
+        VERSION: version,
+        DESCRIPTION: description,
+        PRODUCTNAME: productName,
+        AUTHOR: author,
       },
 
-      vueRouterMode: 'hash', // available values: 'hash', 'history'
+      vueRouterMode: 'history', // available values: 'hash', 'history'
       // vueRouterBase,
       // vueDevtools,
       // vueOptionsAPI: false,
@@ -68,7 +108,12 @@ module.exports = configure(function (/* ctx */) {
       // polyfillModulePreload: true,
       // distDir
 
-      // extendViteConf (viteConf) {},
+      extendViteConf(viteConf) {
+        viteConf.resolve.alias = mergeConfig(viteConf.resolve.alias, {
+          lib: path.join(viteConf.resolve.alias.src, 'lib'),
+          domains: path.join(viteConf.resolve.alias.src, 'domains'),
+        });
+      },
       // viteVuePluginOptions: {},
 
       vitePlugins: [
@@ -81,21 +126,19 @@ module.exports = configure(function (/* ctx */) {
           // runtimeOnly: false,
 
           // you need to set i18n resource including paths !
-          include: path.resolve(__dirname, './src/i18n/**')
+          include: path.resolve(__dirname, './src/i18n/**'),
         }],
         ['vite-plugin-checker', {
           eslint: {
-            lintCommand: 'eslint "./**/*.{js,mjs,cjs,vue}"'
-          }
-        }, { server: false }]
-      ]
+            lintCommand: 'eslint "./**/*.{js,mjs,cjs,vue}"',
+          },
+          overlay: false,
+        }, { server: false }],
+      ],
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
-    devServer: {
-      // https: true
-      open: true // opens browser window automatically
-    },
+    devServer,
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
     framework: {
@@ -112,7 +155,10 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: [
+        'Dialog',
+        'Notify',
+      ],
     },
 
     // animations: 'all', // --- includes all animations
@@ -134,7 +180,7 @@ module.exports = configure(function (/* ctx */) {
     // https://v2.quasar.dev/quasar-cli-vite/developing-ssr/configuring-ssr
     ssr: {
       // ssrPwaHtmlFilename: 'offline.html', // do NOT use index.html as name!
-                                          // will mess up SSR
+      // will mess up SSR
 
       // extendSSRWebserverConf (esbuildConf) {},
       // extendPackageJson (json) {},
@@ -145,11 +191,11 @@ module.exports = configure(function (/* ctx */) {
       // manualPostHydrationTrigger: true,
 
       prodPort: 3000, // The default port that the production server should use
-                      // (gets superseded if process.env.PORT is specified at runtime)
+      // (gets superseded if process.env.PORT is specified at runtime)
 
       middlewares: [
-        'render' // keep this as last one
-      ]
+        'render', // keep this as last one
+      ],
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/developing-pwa/configuring-pwa
@@ -173,7 +219,7 @@ module.exports = configure(function (/* ctx */) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-capacitor-apps/configuring-capacitor
     capacitor: {
-      hideSplashscreen: true
+      hideSplashscreen: true,
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/configuring-electron
@@ -202,18 +248,18 @@ module.exports = configure(function (/* ctx */) {
       builder: {
         // https://www.electron.build/configuration/configuration
 
-        appId: 'pdns-admin-quasar'
-      }
+        appId: 'pdns-admin-quasar',
+      },
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-browser-extensions/configuring-bex
     bex: {
       contentScripts: [
-        'my-content-script'
+        'my-content-script',
       ],
 
       // extendBexScriptsConf (esbuildConf) {}
       // extendBexManifestJson (json) {}
-    }
-  }
+    },
+  };
 });
