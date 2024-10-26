@@ -5,7 +5,7 @@
       :key="server.value.id"
       clickable
       v-ripple
-      :to="{name: 'server', params: {id: server.value.id}}"
+      :to="{name: 'server.edit', params: {serverId: server.value.id}}"
     >
       <q-item-section avatar>
         <q-icon color="primary" name="dns" />

@@ -1,36 +1,24 @@
 <template>
   <q-page class="q-pa-md flex justify-center items-start">
-    <q-banner v-if="!servers.length" rounded class="bg-orange text-white">
-      {{$t('servers.noneFound')}}
-    </q-banner>
-    <ServerList
-      v-else
-      flat
-      bordered
-      class="container-520"
-      :servers="servers"
-    />
+    <div class="container-520 flex column gap-sm">
+      <div class="text-h6 q-mb-sm">Links</div>
+      <a class="link link-external" href="https://doc.powerdns.com/authoritative/http-api/#endpoints-and-objects-in-the-api" target="_blank">PowerDNS-API</a>
+    </div>
   </q-page>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import usePdnsServer from 'lib/usePdnsServer';
-import ServerList from 'components/ServerList.vue';
 
 //------------------------------------------------------------------------------
 export default defineComponent({
   name: 'IndexPage',
 
   components: {
-    ServerList,
   },
 
   setup() {
-    const { servers, lastError } = usePdnsServer();
     return {
-      servers,
-      lastError,
     };
   },
 });

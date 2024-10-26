@@ -3,7 +3,7 @@
     <q-item
       v-for="menuItem of menu"
       :key="menuItem.name"
-      :to="{name: menuItem.name}"
+      :to="{name: menuItem.target || menuItem.name}"
       :exact="menuItem.exact"
       active-class="text-secondary"
     >

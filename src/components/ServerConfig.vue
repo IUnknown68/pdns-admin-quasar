@@ -38,8 +38,14 @@ export default defineComponent({
     const apiKey = ref(serverConfig.apiKey);
 
     function collect(target) {
+      const modified = (target.url !== url.value)
+        || (target.apiKey !== apiKey.value);
+      if (!modified) {
+        return false;
+      }
       target.url = url.value;
       target.apiKey = apiKey.value;
+      return true;
     }
 
     return {

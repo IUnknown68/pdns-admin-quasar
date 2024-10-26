@@ -15,8 +15,14 @@
 
         <q-card-actions
           align="right"
-          class="q-px-md"
+          class="q-px-md gap-md"
         >
+          <BannerNotification
+            ref="bannerRef"
+            rounded dense class="bg-positive text-white"
+          >
+            {{$t('message.settingsSaved')}}
+          </BannerNotification>
           <q-btn
             outline
             color="primary"
@@ -32,9 +38,11 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import usePdnsServerConfig from 'lib/usePdnsServerConfig';
+import usePdnsServer from 'lib/usePdnsServer';
 import ServerConfig from 'components/ServerConfig.vue';
+import BannerNotification from 'components/BannerNotification.vue';
 
 //------------------------------------------------------------------------------
 export default defineComponent({
@@ -42,22 +50,29 @@ export default defineComponent({
 
   components: {
     ServerConfig,
+    BannerNotification,
   },
 
   setup() {
     const { serverConfig } = usePdnsServerConfig();
+    const { loadServers } = usePdnsServer();
+    const serverConfigRef = ref();
+    const bannerRef = ref();
 
     function handleOKClick() {
-    }
-
-    function handleCancelClick() {
+      const modified = serverConfigRef.value.collect(serverConfig.value);
+      bannerRef.value?.show();
+      if (modified) {
+        loadServers();
+      }
     }
 
     return {
       serverConfig,
+      serverConfigRef,
+      bannerRef,
 
       handleOKClick,
-      handleCancelClick,
     };
   },
 });

@@ -5,18 +5,27 @@ export default {
   label: {
     menu: 'Menu',
     goHome: 'Go Home',
+    server: 'Server',
+    noneMale: 'None',
+    numberOfZones: 'Selected: No zones. | Selected: One zone. | Selected: {count} zones.',
   },
-  error: {
+  message: {
     pageNotFound: 'Page not found',
+    settingsSaved: 'Settings saved.',
+    loadingData: 'Loading app...',
   },
   menu: {
     darkMode: 'Dark Mode',
-    loadingData: 'Loading app...',
   },
   button: {
     ok: 'OK',
     cancel: 'Cancel',
     save: 'Save',
+    retry: 'Retry',
+    delete: 'Delete',
+    edit: 'Edit',
+    editZone: 'Edit Zone',
+    editRecords: 'Edit Records',
   },
   servers: {
     title: 'Server',
@@ -31,6 +40,11 @@ export default {
   about: {
     title: 'Info',
   },
+  boot: {
+    error: {
+      noConfig: "Can't start without a config.",
+    },
+  },
   serverConfig: {
     title: 'Server Configuration',
     url: {
@@ -42,9 +56,14 @@ export default {
       hint: 'Server API-key. You should have setup one.',
     },
   },
-  boot: {
-    error: {
-      noConfig: "Can't start without a config.",
+  zone: {
+    field: {
+      name: 'Name',
+      kind: 'Kind',
+      dnssec: 'DNSSEC',
+      serial: 'Serial',
+      account: 'Account',
+      actions: 'Actions',
     },
   },
 };

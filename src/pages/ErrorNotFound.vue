@@ -6,7 +6,7 @@
       </div>
 
       <div class="text-h2" style="opacity:.4">
-        {{$t('error.pageNotFound')}}
+        {{$t('message.pageNotFound')}}
       </div>
 
       <q-btn

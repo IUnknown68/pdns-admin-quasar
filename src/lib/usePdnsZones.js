@@ -1,5 +1,5 @@
 import {
-  shallowReactive,
+  reactive,
   computed,
   ref,
   toValue,
@@ -13,16 +13,13 @@ import useLoading, {
   STATUS_ERROR,
 } from 'lib/useLoading';
 
-// const BASE_URL = '/api/v1/servers';
-// const API_KEY = '1c72e57610d341159537da85d2b10bcd';
-
-const serverMap = shallowReactive(new Map());
-const serverList = computed(() => [...serverMap.values()]);
+const zoneMap = reactive(new Map());
+const zoneList = computed(() => [...zoneMap.values()]);
 const { status, setStatus } = useLoading();
 const lastError = ref(null);
 
 //------------------------------------------------------------------------------
-async function loadServers(force = false) {
+async function loadZones(serverId, force = false) {
   switch (status.value) {
     case STATUS_LOADING:
       return;
@@ -38,15 +35,16 @@ async function loadServers(force = false) {
     setStatus(STATUS_LOADING);
     const { serverConfig } = usePdnsServerConfig();
     lastError.value = null;
-    const response = await axios.get(serverConfig.value.url, {
+    const response = await axios.get(`${serverConfig.value.url}/${toValue(serverId)}/zones`, {
+      // timeout: 2000,
       headers: {
         'X-API-Key': serverConfig.value.apiKey,
       },
     });
 
-    serverMap.clear();
-    for (const server of response.data) {
-      serverMap.set(server.id, ref(server));
+    zoneMap.clear();
+    for (const zone of response.data) {
+      zoneMap.set(zone.id, zone);
     }
     setStatus(STATUS_LOADED);
   } catch (error) {
@@ -56,19 +54,19 @@ async function loadServers(force = false) {
 }
 
 //------------------------------------------------------------------------------
-function getServer(serverId) {
-  return serverMap.get(toValue(serverId));
+async function getZone(id) {
+  return zoneMap.get(id);
 }
 
 //------------------------------------------------------------------------------
-function usePdnsServer() {
+function usePdnsZones() {
   return {
-    servers: serverList,
+    zones: zoneList,
     status,
     lastError,
-    loadServers,
-    getServer,
+    loadZones,
+    getZone,
   };
 }
 
-export default usePdnsServer;
+export default usePdnsZones;

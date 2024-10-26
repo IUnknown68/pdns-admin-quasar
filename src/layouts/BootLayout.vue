@@ -46,7 +46,7 @@ export default defineComponent({
     const app = useApp();
     const { t } = useI18n();
     const message = computed(() => (
-      app.error ? app.error.message : t('loadingData')));
+      app.error ? app.error.message : t('message.loadingData')));
 
     async function boot() {
       try {

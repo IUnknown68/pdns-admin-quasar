@@ -16,7 +16,7 @@
           <q-btn
             v-if="dismissable"
             flat
-            label="$t('button.cancel')"
+            :label="$t('button.cancel')"
             @click="handleCancelClick"
             class="flex-basis-100"
           />
@@ -24,7 +24,7 @@
             outline
             color="primary"
             type="submit"
-            label="$t('button.ok')"
+            :label="$t('button.ok')"
             @click="handleOKClick"
             class="flex-basis-100"
           />

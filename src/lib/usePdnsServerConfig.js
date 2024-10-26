@@ -5,7 +5,7 @@ import { SERVER_CONFIG } from 'src/constants.js';
 
 const serverConfig = useLocalStorage(SERVER_CONFIG, {
   version: 1,
-  url: '',
+  url: '/api/v1/servers',
   apiKey: '',
 });
 

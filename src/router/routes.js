@@ -2,25 +2,16 @@ import MainLayout from 'layouts/MainLayout.vue';
 import AboutPage from 'pages/AboutPage.vue';
 import IndexPage from 'pages/IndexPage.vue';
 import SettingsPage from 'pages/SettingsPage.vue';
-import ServerPage from 'pages/ServerPage.vue';
 
 import ErrorNotFound from 'pages/ErrorNotFound.vue';
+
+import server from './server';
 
 const routes = [
   {
     path: '/',
     component: MainLayout,
     children: [
-      {
-        path: '/server/:id',
-        name: 'server',
-        component: ServerPage,
-        meta: {
-          title: 'servers.title',
-          icon: 'dns',
-          hide: true,
-        },
-      },
       {
         path: '/settings',
         name: 'settings',
@@ -39,6 +30,7 @@ const routes = [
           icon: 'info',
         },
       },
+      server,
       {
         path: '/',
         name: 'home',
@@ -62,6 +54,7 @@ const routes = [
 
 export const menu = [...routes[0].children].reverse().map((route) => ({
   title: route.meta.title,
+  target: route.meta.target,
   icon: route.meta.icon,
   exact: route.meta.exact,
   hide: route.meta.hide,

@@ -5,18 +5,27 @@ export default {
   label: {
     menu: 'Menu',
     goHome: 'Zur Startseite',
+    server: 'Server',
+    noneMale: 'Kein',
+    numberOfZones: 'keine | Eine Zone ausgewählt. | {count} Zonen ausgewählt.',
   },
-  error: {
+  message: {
     pageNotFound: 'Seite nicht gefunden',
+    settingsSaved: 'Einstellungen gespeichert.',
+    loadingData: 'Lade App...',
   },
   menu: {
     darkMode: 'Dunkler Modus',
-    loadingData: 'Lade App...',
   },
   button: {
     ok: 'OK',
     cancel: 'Abbrechen',
     save: 'Speichern',
+    retry: 'Nochmal versuchen',
+    delete: 'Löschen',
+    edit: 'Bearbeiten',
+    editZone: 'Zone Bearbeiten',
+    editRecords: 'Einträge Bearbeiten',
   },
   servers: {
     title: 'Server',
@@ -31,6 +40,11 @@ export default {
   about: {
     title: 'Info',
   },
+  boot: {
+    error: {
+      noConfig: 'Ohne Konfiguration geht hier nix.',
+    },
+  },
   serverConfig: {
     title: 'Server Konfiguration',
     url: {
@@ -42,9 +56,14 @@ export default {
       hint: 'Server API-Schlüssel. Sollte man einen vergeben haben.',
     },
   },
-  boot: {
-    error: {
-      noConfig: 'Ohne Konfiguration geht hier nix.',
+  zone: {
+    field: {
+      name: 'Name',
+      kind: 'Art',
+      dnssec: 'DNSSEC',
+      serial: 'Serial',
+      account: 'Konto',
+      actions: 'Aktionen',
     },
   },
 };
