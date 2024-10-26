@@ -20,6 +20,9 @@ export default {
           path: '',
           name: 'record.edit',
           component: RecordEditPage,
+          meta: {
+            title: 'record.recordEditPageTitle',
+          },
         },
       ],
     },
@@ -29,6 +32,9 @@ export default {
       path: '',
       name: 'record.list',
       component: RecordListPage,
+      meta: {
+        title: 'record.recordListPageTitle',
+      },
     },
   ],
 };

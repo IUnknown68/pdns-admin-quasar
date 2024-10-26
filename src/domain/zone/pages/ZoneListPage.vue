@@ -25,7 +25,7 @@
       :serverId="server.id"
       :rows="zones"
       :loading="loading"
-      :title="`${$t('label.server')}: ${server.id}`"
+      :title="`${$t('server.title')}: ${server.id}`"
     />
   </q-page>
 </template>

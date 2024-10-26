@@ -67,7 +67,7 @@ function useAdvancedTableSelection() {
     selected,
     tableRef,
     handleSelection,
-    getSelectedRowsLabel: (count) => t('label.numberOfZones', count),
+    getSelectedRowsLabel: (count) => t('zone.numberOfZones', count),
   };
 }
 

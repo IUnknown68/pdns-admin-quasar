@@ -11,7 +11,7 @@ export default {
   // List of server.
   path: '/server',
   meta: {
-    title: 'servers.title',
+    title: 'server.title',
     target: 'server.list',
     icon: 'dns',
   },
@@ -28,6 +28,9 @@ export default {
           path: '',
           name: 'server.edit',
           component: ServerEditPage,
+          meta: {
+            title: 'server.serverEditPageTitle',
+          },
         },
       ],
     },
@@ -37,6 +40,9 @@ export default {
       path: '',
       name: 'server.list',
       component: ServerListPage,
+      meta: {
+        title: 'server.serverListPageTitle',
+      },
     },
   ],
 };

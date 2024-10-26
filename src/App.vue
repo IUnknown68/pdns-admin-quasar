@@ -32,7 +32,7 @@ export default defineComponent({
     const app = useApp();
     const darkmode = useLocalStorage('darkmode', false);
     const { t } = useI18n();
-    const title = ref('Some title');
+    const title = ref(process.env.PRODUCTNAME);
     const route = useRoute();
 
     useMeta(() => ({
@@ -42,10 +42,11 @@ export default defineComponent({
     useQuasar().dark.set(darkmode.value);
 
     watch(route, () => {
+      const templateData = {};
       if (route.meta.title) {
-        title.value = t(route.meta.title);
+        title.value = t(route.meta.title, templateData);
       } else {
-        title.value = 'TITLE';
+        title.value = process.env.PRODUCTNAME;
       }
     });
 

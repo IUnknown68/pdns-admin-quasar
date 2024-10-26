@@ -8,7 +8,7 @@
       <q-form @submit="handleOKClick">
         <q-card-section>
           <div class="q-pb-sm text-h6">
-            {{$t('serverConfig.title')}}
+            {{$t('server.serverConfig.title')}}
           </div>
           <ServerConfig ref="serverConfigRef" :server-config="serverConfig" />
         </q-card-section>

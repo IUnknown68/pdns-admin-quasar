@@ -3,16 +3,16 @@
     <q-input
       v-bind="inputProps"
       v-model="url"
-      :hint="$t('serverConfig.url.hint')"
-      :label="$t('serverConfig.url.label')"
+      :hint="$t('server.serverConfig.url.hint')"
+      :label="$t('server.serverConfig.url.label')"
     />
   </div>
   <div class="q-pb-md">
     <q-input
       v-bind="inputProps"
       v-model="apiKey"
-      :hint="$t('serverConfig.apiKey.hint')"
-      :label="$t('serverConfig.apiKey.label')"
+      :hint="$t('server.serverConfig.apiKey.hint')"
+      :label="$t('server.serverConfig.apiKey.label')"
     />
   </div>
 </template>

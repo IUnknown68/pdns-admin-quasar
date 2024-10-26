@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-pa-md">
-    <div class="text-h5 q-mb-md">{{$t('servers.title')}}</div>
+    <div class="text-h5 q-mb-md">{{$t('server.title')}}</div>
     <q-banner
       v-if="lastError"
       rounded

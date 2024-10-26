@@ -23,6 +23,9 @@ export default {
           path: '',
           name: 'zone.edit',
           component: ZoneEditPage,
+          meta: {
+            title: 'zone.zoneListPageTitle',
+          },
         },
       ],
     },
@@ -32,6 +35,9 @@ export default {
       path: '',
       name: 'zone.list',
       component: ZoneListPage,
+      meta: {
+        title: 'zone.zoneListPageTitle',
+      },
     },
   ],
 };

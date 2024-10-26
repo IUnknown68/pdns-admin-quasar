@@ -1,13 +1,14 @@
+import server from 'domain/server/i18n/en-US';
+import zone from 'domain/zone/i18n/en-US';
+import record from 'domain/record/i18n/en-US';
+
 export default {
   appTitle: 'PowerDNS',
-  tryAgain: 'Try again',
   version: 'Version',
   label: {
     menu: 'Menu',
     goHome: 'Go Home',
-    server: 'Server',
     noneMale: 'None',
-    numberOfZones: 'Selected: No zones. | Selected: One zone. | Selected: {count} zones.',
   },
   message: {
     pageNotFound: 'Page not found',
@@ -27,10 +28,6 @@ export default {
     editZone: 'Edit Zone',
     editRecords: 'Edit Records',
   },
-  servers: {
-    title: 'Server',
-    noneFound: 'No servers found.',
-  },
   dashboard: {
     title: 'Dashboard',
   },
@@ -45,25 +42,7 @@ export default {
       noConfig: "Can't start without a config.",
     },
   },
-  serverConfig: {
-    title: 'Server Configuration',
-    url: {
-      label: 'Server-URL',
-      hint: 'Server API-URL. Usually port 8081.',
-    },
-    apiKey: {
-      label: 'API-key',
-      hint: 'Server API-key. You should have setup one.',
-    },
-  },
-  zone: {
-    field: {
-      name: 'Name',
-      kind: 'Kind',
-      dnssec: 'DNSSEC',
-      serial: 'Serial',
-      account: 'Account',
-      actions: 'Actions',
-    },
-  },
+  server,
+  zone,
+  record,
 };
