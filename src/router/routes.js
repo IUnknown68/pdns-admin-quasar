@@ -5,7 +5,7 @@ import SettingsPage from 'pages/SettingsPage.vue';
 
 import ErrorNotFound from 'pages/ErrorNotFound.vue';
 
-import server from './server';
+import server from 'domain/server/routes.js';
 
 const routes = [
   {

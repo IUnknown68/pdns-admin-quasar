@@ -38,12 +38,13 @@ import {
   onMounted,
   toValue,
 } from 'vue';
-import ZoneList from 'components/ZoneList.vue';
 
-import usePdnsServer from 'lib/usePdnsServer';
-import usePdnsZones from 'lib/usePdnsZones';
 import useRouteParams from 'lib/useRouteParams';
 import { STATUS_LOADING } from 'lib/useLoading';
+import useServer from 'domain/server/useServer';
+
+import useZones from '../useZones';
+import ZoneList from '../components/ZoneList.vue';
 
 //------------------------------------------------------------------------------
 export default defineComponent({
@@ -55,14 +56,14 @@ export default defineComponent({
 
   setup() {
     const [serverId] = useRouteParams('serverId');
-    const { getItem: getServer } = usePdnsServer();
+    const { getItem: getServer } = useServer();
     const server = computed(() => getServer(serverId));
     const {
       items: zones,
       loadItems: loadZones,
       lastError,
       status,
-    } = usePdnsZones();
+    } = useZones();
 
     function reload() {
       loadZones({ serverId: toValue(serverId) });

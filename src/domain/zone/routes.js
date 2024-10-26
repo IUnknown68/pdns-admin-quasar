@@ -1,10 +1,11 @@
-import ZoneEditPage from 'pages/ZoneEditPage.vue';
-import ZoneListPage from 'pages/ZoneListPage.vue';
+import record from 'domain/record/routes.js';
 
-import record from './record';
+import ZoneEditPage from './pages/ZoneEditPage.vue';
+import ZoneListPage from './pages/ZoneListPage.vue';
 
 // Mounted at: /server/:serverId/
 
+//------------------------------------------------------------------------------
 export default {
   // zone
   // List of zones of a server.

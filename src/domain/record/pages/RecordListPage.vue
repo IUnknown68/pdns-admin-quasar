@@ -41,8 +41,8 @@ import {
   computed,
 } from 'vue';
 import useRouteParams from 'lib/useRouteParams';
-import usePdnsServer from 'lib/usePdnsServer';
-import usePdnsZones from 'lib/usePdnsZones';
+import useServer from 'domain/server/useServer';
+import useZones from 'domain/zone/useZones';
 
 //------------------------------------------------------------------------------
 export default defineComponent({
@@ -52,8 +52,8 @@ export default defineComponent({
   },
 
   setup() {
-    const { getItem: getServer } = usePdnsServer();
-    const { getItem: getZone } = usePdnsZones();
+    const { getItem: getServer } = useServer();
+    const { getItem: getZone } = useZones();
     const [serverId, zoneId] = useRouteParams('serverId', 'zoneId');
     const server = computed(() => getServer(serverId));
     const zone = computed(() => getZone(zoneId));

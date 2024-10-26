@@ -39,8 +39,9 @@
 
 <script>
 import { defineComponent } from 'vue';
-import usePdnsServer from 'lib/usePdnsServer';
-import ServerList from 'components/ServerList.vue';
+
+import useServer from '../useServer';
+import ServerList from '../components/ServerList.vue';
 
 //------------------------------------------------------------------------------
 export default defineComponent({
@@ -51,7 +52,7 @@ export default defineComponent({
   },
 
   setup() {
-    const { items: servers, lastError, loadItems: loadServers } = usePdnsServer();
+    const { items: servers, lastError, loadItems: loadServers } = useServer();
     return {
       servers,
       lastError,

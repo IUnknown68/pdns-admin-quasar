@@ -38,8 +38,8 @@
 import { defineComponent, ref } from 'vue';
 import { useDialogPluginComponent, Dialog } from 'quasar';
 
-import usePdnsServerConfig from 'lib/usePdnsServerConfig';
-import ServerConfig from 'components/ServerConfig.vue';
+import useServerConfig from '../useServerConfig';
+import ServerConfig from './ServerConfig.vue';
 
 //------------------------------------------------------------------------------
 const ServerConfigDialog = defineComponent({
@@ -59,7 +59,7 @@ const ServerConfigDialog = defineComponent({
   emits: [...useDialogPluginComponent.emits],
 
   setup() {
-    const { serverConfig } = usePdnsServerConfig();
+    const { serverConfig } = useServerConfig();
     const {
       dialogRef,
       onDialogHide,

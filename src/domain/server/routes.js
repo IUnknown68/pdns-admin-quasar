@@ -1,10 +1,11 @@
-import ServerListPage from 'pages/ServerListPage.vue';
-import ServerEditPage from 'pages/ServerEditPage.vue';
+import zone from 'domain/zone/routes.js';
 
-import zone from './zone';
+import ServerListPage from './pages/ServerListPage.vue';
+import ServerEditPage from './pages/ServerEditPage.vue';
 
 // Mounted at: /server
 
+//------------------------------------------------------------------------------
 export default {
   // /server
   // List of server.

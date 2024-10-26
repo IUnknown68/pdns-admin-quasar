@@ -19,7 +19,8 @@ import {
   computed,
 } from 'vue';
 import useRouteParams from 'lib/useRouteParams';
-import usePdnsServer from 'lib/usePdnsServer';
+
+import useServer from '../useServer';
 
 //------------------------------------------------------------------------------
 export default defineComponent({
@@ -29,7 +30,7 @@ export default defineComponent({
   },
 
   setup() {
-    const { getItem: getServer } = usePdnsServer();
+    const { getItem: getServer } = useServer();
     const [serverId] = useRouteParams('serverId');
     const server = computed(() => getServer(serverId));
 

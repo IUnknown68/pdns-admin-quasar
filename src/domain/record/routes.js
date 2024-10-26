@@ -1,8 +1,9 @@
-import RecordEditPage from 'pages/RecordEditPage.vue';
-import RecordListPage from 'pages/RecordListPage.vue';
+import RecordEditPage from './pages/RecordEditPage.vue';
+import RecordListPage from './pages/RecordListPage.vue';
 
 // Mounted at: /server/:serverId/zone/:zoneId/
 
+//------------------------------------------------------------------------------
 export default {
   // record
   // List of records of a zones of a server.

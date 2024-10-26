@@ -111,7 +111,7 @@ module.exports = configure((ctx) => {
       extendViteConf(viteConf) {
         viteConf.resolve.alias = mergeConfig(viteConf.resolve.alias, {
           lib: path.join(viteConf.resolve.alias.src, 'lib'),
-          domains: path.join(viteConf.resolve.alias.src, 'domains'),
+          domain: path.join(viteConf.resolve.alias.src, 'domain'),
         });
       },
       // viteVuePluginOptions: {},
@@ -164,6 +164,7 @@ module.exports = configure((ctx) => {
         'Dialog',
         'Notify',
         'LoadingBar',
+        'Meta',
       ],
     },
 

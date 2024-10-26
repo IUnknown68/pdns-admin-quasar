@@ -12,11 +12,11 @@ const serverConfig = useLocalStorage(SERVER_CONFIG, {
 const serverConfigValid = computed(() => (serverConfig.value.url && serverConfig.value.apiKey));
 
 //------------------------------------------------------------------------------
-function usePdnsServerConfig() {
+function useServerConfig() {
   return {
     serverConfig,
     serverConfigValid,
   };
 }
 
-export default usePdnsServerConfig;
+export default useServerConfig;

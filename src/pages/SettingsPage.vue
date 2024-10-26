@@ -39,9 +39,11 @@
 
 <script>
 import { defineComponent, ref } from 'vue';
-import usePdnsServerConfig from 'lib/usePdnsServerConfig';
-import usePdnsServer from 'lib/usePdnsServer';
-import ServerConfig from 'components/ServerConfig.vue';
+
+import useServerConfig from 'domain/server/useServerConfig';
+import useServer from 'domain/server/useServer';
+import ServerConfig from 'domain/server/components/ServerConfig.vue';
+
 import BannerNotification from 'components/BannerNotification.vue';
 
 //------------------------------------------------------------------------------
@@ -54,8 +56,8 @@ export default defineComponent({
   },
 
   setup() {
-    const { serverConfig } = usePdnsServerConfig();
-    const { loadItems: loadServers } = usePdnsServer();
+    const { serverConfig } = useServerConfig();
+    const { loadItems: loadServers } = useServer();
     const serverConfigRef = ref();
     const bannerRef = ref();
 

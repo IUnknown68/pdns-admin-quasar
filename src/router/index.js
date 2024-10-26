@@ -6,8 +6,8 @@ import {
   createWebHashHistory,
 } from 'vue-router';
 
-import usePdnsZones from 'lib/usePdnsZones';
-import usePdnsRecords from 'lib/usePdnsRecords';
+import useZones from 'domain/zone/useZones';
+import useRecords from 'domain/record/useRecords';
 
 import routes from './routes';
 /*
@@ -35,8 +35,8 @@ export default route((/* { store, ssrContext } */) => {
   });
 
   router.beforeResolve(async (to) => {
-    const { loadItems: loadZones } = usePdnsZones();
-    const { loadItems: loadRecords } = usePdnsRecords();
+    const { loadItems: loadZones } = useZones();
+    const { loadItems: loadRecords } = useRecords();
 
     const { serverId, zoneId } = to.params;
     if (typeof serverId !== 'undefined') {
