@@ -51,7 +51,7 @@ export default defineComponent({
   },
 
   setup() {
-    const { servers, lastError, loadServers } = usePdnsServer();
+    const { items: servers, lastError, loadItems: loadServers } = usePdnsServer();
     return {
       servers,
       lastError,

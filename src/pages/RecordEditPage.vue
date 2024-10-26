@@ -27,7 +27,7 @@
 
 <script>
 import { defineComponent } from 'vue';
-import useCurrent from 'lib/useCurrent';
+import useRouteParams from 'lib/useRouteParams';
 
 //------------------------------------------------------------------------------
 export default defineComponent({
@@ -37,7 +37,7 @@ export default defineComponent({
   },
 
   setup() {
-    const { serverId, zoneId } = useCurrent();
+    const [serverId, zoneId] = useRouteParams('serverId', 'zoneId');
     return {
       serverId,
       zoneId,

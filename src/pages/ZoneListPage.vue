@@ -22,9 +22,10 @@
 
     <ZoneList
       v-else-if="server"
+      :serverId="server.id"
       :rows="zones"
       :loading="loading"
-      :title="`${$t('label.server')}: ${server.value.id}`"
+      :title="`${$t('label.server')}: ${server.id}`"
     />
   </q-page>
 </template>
@@ -35,12 +36,13 @@ import {
   computed,
   watch,
   onMounted,
+  toValue,
 } from 'vue';
 import ZoneList from 'components/ZoneList.vue';
 
 import usePdnsServer from 'lib/usePdnsServer';
 import usePdnsZones from 'lib/usePdnsZones';
-import useCurrent from 'lib/useCurrent';
+import useRouteParams from 'lib/useRouteParams';
 import { STATUS_LOADING } from 'lib/useLoading';
 
 //------------------------------------------------------------------------------
@@ -52,18 +54,18 @@ export default defineComponent({
   },
 
   setup() {
-    const { serverId } = useCurrent();
-    const { getServer } = usePdnsServer();
+    const [serverId] = useRouteParams('serverId');
+    const { getItem: getServer } = usePdnsServer();
     const server = computed(() => getServer(serverId));
     const {
-      zones,
-      loadZones,
+      items: zones,
+      loadItems: loadZones,
       lastError,
       status,
     } = usePdnsZones();
 
     function reload() {
-      loadZones(serverId);
+      loadZones({ serverId: toValue(serverId) });
     }
     const loading = computed(() => status.value === STATUS_LOADING);
 

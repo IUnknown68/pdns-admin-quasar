@@ -9,7 +9,7 @@ const APP_DEFAULTS = {
   error: null,
   load: async () => {
     const { serverConfigValid } = usePdnsServerConfig();
-    const { loadServers } = usePdnsServer();
+    const { loadItems: loadServers } = usePdnsServer();
 
     while (!serverConfigValid.value) {
       await doModal(false);

@@ -1,30 +1,33 @@
 <template>
   <q-page class="q-pa-xl">
+    <div class="text-h6 q-mb-sm">
+      List records of Zone {{zone.id}} of Server {{server.id}}
+    </div>
     <div class="text-h6 q-mb-sm">RecordListPage</div>
     <div>
       <router-link
-        :to="{name: 'server.edit', params: {serverId: serverId}}"
+        :to="{name: 'server.edit', params: {serverId: server.id}}"
       >
         Edit this server
       </router-link>
     </div>
     <div>
       <router-link
-        :to="{name: 'zone.list', params: {serverId: serverId}}"
+        :to="{name: 'zone.list', params: {serverId: server.id}}"
       >
         List of zones of this server
       </router-link>
     </div>
     <div>
       <router-link
-        :to="{name: 'zone.edit', params: {serverId: serverId, zoneId: zoneId}}"
+        :to="{name: 'zone.edit', params: {serverId: server.id, zoneId: zone.id}}"
       >
         Edit a zone of server
       </router-link>
     </div>
     <div>
       <router-link
-        :to="{name: 'record.edit', params: {serverId: serverId, zoneId: zoneId, recordId: 0 }}"
+        :to="{name: 'record.edit', params: {serverId: server.id, zoneId: zone.id, recordId: 0 }}"
       >
         Edit a record of a zone of server
       </router-link>
@@ -33,8 +36,13 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
-import useCurrent from 'lib/useCurrent';
+import {
+  defineComponent,
+  computed,
+} from 'vue';
+import useRouteParams from 'lib/useRouteParams';
+import usePdnsServer from 'lib/usePdnsServer';
+import usePdnsZones from 'lib/usePdnsZones';
 
 //------------------------------------------------------------------------------
 export default defineComponent({
@@ -44,10 +52,15 @@ export default defineComponent({
   },
 
   setup() {
-    const { serverId, zoneId } = useCurrent();
+    const { getItem: getServer } = usePdnsServer();
+    const { getItem: getZone } = usePdnsZones();
+    const [serverId, zoneId] = useRouteParams('serverId', 'zoneId');
+    const server = computed(() => getServer(serverId));
+    const zone = computed(() => getZone(zoneId));
+
     return {
-      serverId,
-      zoneId,
+      server,
+      zone,
     };
   },
 });

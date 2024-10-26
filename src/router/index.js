@@ -1,9 +1,15 @@
 import { route } from 'quasar/wrappers';
 import {
-  createRouter, createMemoryHistory, createWebHistory, createWebHashHistory,
+  createRouter,
+  createMemoryHistory,
+  createWebHistory,
+  createWebHashHistory,
 } from 'vue-router';
-import routes from './routes';
 
+import usePdnsZones from 'lib/usePdnsZones';
+import usePdnsRecords from 'lib/usePdnsRecords';
+
+import routes from './routes';
 /*
  * If not building with SSR mode, you can
  * directly export the Router instantiation;
@@ -18,7 +24,7 @@ export default route((/* { store, ssrContext } */) => {
     ? createMemoryHistory
     : (process.env.VUE_ROUTER_MODE === 'history' ? createWebHistory : createWebHashHistory);
 
-  const Router = createRouter({
+  const router = createRouter({
     scrollBehavior: () => ({ left: 0, top: 0 }),
     routes,
 
@@ -28,5 +34,18 @@ export default route((/* { store, ssrContext } */) => {
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
 
-  return Router;
+  router.beforeResolve(async (to) => {
+    const { loadItems: loadZones } = usePdnsZones();
+    const { loadItems: loadRecords } = usePdnsRecords();
+
+    const { serverId, zoneId } = to.params;
+    if (typeof serverId !== 'undefined') {
+      await loadZones({ serverId });
+      if (typeof zoneId !== 'undefined') {
+        await loadRecords({ serverId, zoneId });
+      }
+    }
+  });
+
+  return router;
 });

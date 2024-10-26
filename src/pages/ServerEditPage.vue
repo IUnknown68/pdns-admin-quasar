@@ -1,9 +1,11 @@
 <template>
   <q-page class="q-pa-xl">
-    <div class="text-h6 q-mb-sm">ServerEditPage</div>
+    <div class="text-h6 q-mb-sm">
+      Edit Server {{server.id}}
+    </div>
     <div>
       <router-link
-        :to="{name: 'zone.list', params: {serverId: serverId}}"
+        :to="{name: 'zone.list', params: {serverId: server.id}}"
       >
         List of zones of this server.
       </router-link>
@@ -12,8 +14,12 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue';
-import useCurrent from 'lib/useCurrent';
+import {
+  defineComponent,
+  computed,
+} from 'vue';
+import useRouteParams from 'lib/useRouteParams';
+import usePdnsServer from 'lib/usePdnsServer';
 
 //------------------------------------------------------------------------------
 export default defineComponent({
@@ -23,10 +29,12 @@ export default defineComponent({
   },
 
   setup() {
-    const { serverId, zoneId } = useCurrent();
+    const { getItem: getServer } = usePdnsServer();
+    const [serverId] = useRouteParams('serverId');
+    const server = computed(() => getServer(serverId));
+
     return {
-      serverId,
-      zoneId,
+      server,
     };
   },
 });

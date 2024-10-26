@@ -3,21 +3,21 @@ import ZoneListPage from 'pages/ZoneListPage.vue';
 
 import record from './record';
 
-// Mounted at: /server/:serverId
+// Mounted at: /server/:serverId/
 
 export default {
-  // /zone
+  // zone
   // List of zones of a server.
   path: 'zone',
   children: [
     {
-      // /zone/:zoneId
+      // zone/:zoneId
       // Single zone.
       path: ':zoneId',
       children: [
         record,
         {
-          // /zone/:zoneId/.
+          // zone/:zoneId/.
           // Single zone.
           path: '',
           name: 'zone.edit',
@@ -26,7 +26,7 @@ export default {
       ],
     },
     {
-      // /zone/.
+      // zone/.
       // List of zones of a server.
       path: '',
       name: 'zone.list',

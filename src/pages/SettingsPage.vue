@@ -55,7 +55,7 @@ export default defineComponent({
 
   setup() {
     const { serverConfig } = usePdnsServerConfig();
-    const { loadServers } = usePdnsServer();
+    const { loadItems: loadServers } = usePdnsServer();
     const serverConfigRef = ref();
     const bannerRef = ref();
 

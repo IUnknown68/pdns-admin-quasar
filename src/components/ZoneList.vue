@@ -75,15 +75,20 @@ import { useLocalStorage } from '@vueuse/core';
 import { useI18n } from 'vue-i18n';
 
 import useAdvancedTableSelection from 'lib/useAdvancedTableSelection';
-import useCurrent from 'lib/useCurrent';
 
 //------------------------------------------------------------------------------
 export default defineComponent({
   name: 'ZoneList',
 
+  props: {
+    serverId: {
+      type: String,
+      required: true,
+    },
+  },
+
   setup() {
     const { t } = useI18n();
-    const { serverId } = useCurrent();
 
     const columns = [
       {
@@ -151,7 +156,6 @@ export default defineComponent({
     return {
       columns,
       pagination,
-      serverId,
 
       handleDeleteZone,
 
