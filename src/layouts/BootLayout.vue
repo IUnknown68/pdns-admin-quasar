@@ -54,6 +54,8 @@ export default defineComponent({
         await app.load();
         app.loaded = true;
       } catch (err) {
+        // eslint-disable-next-line no-console
+        console.log('BOOT', err);
         app.error = err;
         app.loaded = false;
       }

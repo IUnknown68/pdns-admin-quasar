@@ -1,27 +1,7 @@
 <template>
   <q-page class="q-pa-md">
     <div class="text-h5 q-mb-md">{{$t('server.title')}}</div>
-    <q-banner
-      v-if="lastError"
-      rounded
-      inline-actions
-      class="bg-red text-white"
-    >
-      <template v-slot:avatar>
-        <q-icon name="cancel" color="white" />
-      </template>
-      {{lastError.message}}
-      <template v-slot:action>
-        <q-btn
-          flat
-          color="white"
-          :label="$t('button.retry')"
-          @click="loadServers"
-        />
-      </template>
-    </q-banner>
-
-    <div v-else class="flex justify-center items-start">
+    <div class="flex justify-center items-start">
       <div class="container-520">
         <ServerList
           v-if="servers.length"
