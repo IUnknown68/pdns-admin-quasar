@@ -6,9 +6,9 @@ import {
 } from 'vue';
 
 import useLoading, {
+  STATUS_ERROR,
   STATUS_LOADING,
   STATUS_LOADED,
-  STATUS_ERROR,
 } from 'lib/useLoading';
 
 //------------------------------------------------------------------------------
@@ -25,6 +25,7 @@ function useAsStore(load) {
     }
     try {
       setStatus(STATUS_LOADING);
+      lastError.value = null;
       const data = await load(params, status.value, statusRequired);
 
       itemMap.clear();
@@ -35,6 +36,7 @@ function useAsStore(load) {
     } catch (error) {
       setStatus(STATUS_ERROR);
       lastError.value = error;
+      throw error;
     }
     return status.value;
   }
