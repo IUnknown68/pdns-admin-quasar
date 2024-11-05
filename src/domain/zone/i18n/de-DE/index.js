@@ -1,7 +1,7 @@
 export default {
   title: 'Zone',
-  zoneEditPageTitle: 'Zone {name}',
-  zoneListPageTitle: 'Zonen in {name}',
+  zoneEditPageTitle: 'Zone {zoneId} in {serverId}',
+  zoneListPageTitle: 'Zonen in {serverId}',
   numberOfZones: 'keine | Eine Zone ausgewählt. | {count} Zonen ausgewählt.',
   field: {
     name: 'Name',

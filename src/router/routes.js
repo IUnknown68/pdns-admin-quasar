@@ -30,7 +30,9 @@ const routes = [
           icon: 'info',
         },
       },
+      // --- Software domain routes
       server,
+      // --- END Software domain routes
       {
         path: '/',
         name: 'home',
@@ -53,7 +55,7 @@ const routes = [
 ];
 
 export const menu = [...routes[0].children].reverse().map((route) => ({
-  title: route.meta.title,
+  title: route.meta.menuTitle || route.meta.title,
   target: route.meta.target,
   icon: route.meta.icon,
   exact: route.meta.exact,

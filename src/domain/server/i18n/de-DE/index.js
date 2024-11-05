@@ -1,6 +1,6 @@
 export default {
   title: 'Server',
-  serverEditPageTitle: 'Server {name}',
+  serverEditPageTitle: 'Server {id}',
   serverListPageTitle: 'Server',
   noneFound: 'Keine Server gefunden.',
   serverConfig: {

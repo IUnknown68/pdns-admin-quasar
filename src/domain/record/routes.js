@@ -1,6 +1,12 @@
 import RecordEditPage from './pages/RecordEditPage.vue';
 import RecordListPage from './pages/RecordListPage.vue';
 
+import useRecords from './useRecords';
+
+const {
+  loadItems: loadRecords,
+} = useRecords();
+
 // Mounted at: /server/:serverId/zone/:zoneId/
 
 //------------------------------------------------------------------------------
@@ -8,6 +14,9 @@ export default {
   // record
   // List of records of a zones of a server.
   path: 'record',
+  meta: {
+    beforeResolve: (to) => loadRecords(to.params),
+  },
   children: [
     {
       // record/:recordId
@@ -21,7 +30,7 @@ export default {
           name: 'record.edit',
           component: RecordEditPage,
           meta: {
-            title: 'record.recordEditPageTitle',
+            title: (route, t) => t('record.recordEditPageTitle', route.params),
           },
         },
       ],
@@ -33,7 +42,7 @@ export default {
       name: 'record.list',
       component: RecordListPage,
       meta: {
-        title: 'record.recordListPageTitle',
+        title: (route, t) => t('record.recordListPageTitle', route.params),
       },
     },
   ],

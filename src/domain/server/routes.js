@@ -2,6 +2,12 @@ import zone from 'domain/zone/routes.js';
 
 import ServerListPage from './pages/ServerListPage.vue';
 import ServerEditPage from './pages/ServerEditPage.vue';
+import useServer from './useServer';
+
+const {
+  loadItems: loadServer,
+  getItem: getServer,
+} = useServer();
 
 // Mounted at: /server
 
@@ -14,6 +20,7 @@ export default {
     title: 'server.title',
     target: 'server.list',
     icon: 'dns',
+    beforeResolve: () => loadServer(),
   },
   children: [
     {
@@ -29,7 +36,10 @@ export default {
           name: 'server.edit',
           component: ServerEditPage,
           meta: {
-            title: 'server.serverEditPageTitle',
+            title: (route, t) => t(
+              'server.serverEditPageTitle',
+              getServer(route.params.serverId),
+            ),
           },
         },
       ],

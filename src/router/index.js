@@ -1,4 +1,4 @@
-import { route } from 'quasar/wrappers';
+import { route as initRouting } from 'quasar/wrappers';
 import {
   createRouter,
   createMemoryHistory,
@@ -6,8 +6,7 @@ import {
   createWebHashHistory,
 } from 'vue-router';
 
-import useZones from 'domain/zone/useZones';
-import useRecords from 'domain/record/useRecords';
+import useNavigationError from 'lib/useNavigationError';
 
 import routes from './routes';
 /*
@@ -19,7 +18,7 @@ import routes from './routes';
  * with the Router instance.
  */
 
-export default route((/* { store, ssrContext } */) => {
+export default initRouting((/* { store, ssrContext } */) => {
   const createHistory = process.env.SERVER
     ? createMemoryHistory
     : (process.env.VUE_ROUTER_MODE === 'history' ? createWebHistory : createWebHashHistory);
@@ -34,15 +33,19 @@ export default route((/* { store, ssrContext } */) => {
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
 
-  router.beforeResolve(async (to) => {
-    const { loadItems: loadZones } = useZones();
-    const { loadItems: loadRecords } = useRecords();
+  const navigationError = useNavigationError();
 
-    const { serverId, zoneId } = to.params;
-    if (typeof serverId !== 'undefined') {
-      await loadZones({ serverId });
-      if (typeof zoneId !== 'undefined') {
-        await loadRecords({ serverId, zoneId });
+  router.onError((err) => {
+    navigationError.value = err;
+  });
+
+  router.beforeResolve(async (to, from) => {
+    navigationError.value = null;
+    // The routes might depend on each other, so call `beforeResolve()`
+    // one after the other. Don't use `Promise.all()` here.
+    for (const route of to.matched) {
+      if (route.meta.beforeResolve) {
+        await route.meta.beforeResolve(to, from);
       }
     }
   });

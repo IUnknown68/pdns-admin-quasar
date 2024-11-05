@@ -1,5 +1,5 @@
 export default {
   title: 'Record',
-  recordEditPageTitle: 'Record {name}',
-  recordListPageTitle: 'Records in {name}',
+  recordEditPageTitle: 'Record in {zoneId}',
+  recordListPageTitle: 'Records in {zoneId} ',
 };
