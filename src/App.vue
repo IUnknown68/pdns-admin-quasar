@@ -1,24 +1,22 @@
 <template>
   <router-view v-if="app.loaded" />
   <BootLayout v-else />
+  <NavigationErrorDialog />
 </template>
 
 <script>
 import {
   defineComponent,
-  ref,
-  watch,
 } from 'vue';
 import {
   useQuasar,
-  useMeta,
 } from 'quasar';
-import { useRoute } from 'vue-router';
 import { useLocalStorage } from '@vueuse/core';
-import { useI18n } from 'vue-i18n';
 
 import useApp from 'lib/useApp';
+import useAppTitle from 'lib/useAppTitle';
 import BootLayout from 'layouts/BootLayout.vue';
+import NavigationErrorDialog from 'components/NavigationErrorDialog.vue';
 
 //------------------------------------------------------------------------------
 export default defineComponent({
@@ -26,29 +24,15 @@ export default defineComponent({
 
   components: {
     BootLayout,
+    NavigationErrorDialog,
   },
 
   setup() {
-    const app = useApp();
     const darkmode = useLocalStorage('darkmode', false);
-    const { t } = useI18n();
-    const title = ref(process.env.PRODUCTNAME);
-    const route = useRoute();
-
-    useMeta(() => ({
-      title: title.value,
-    }));
+    const app = useApp();
+    useAppTitle();
 
     useQuasar().dark.set(darkmode.value);
-
-    watch(route, () => {
-      const templateData = {};
-      if (route.meta.title) {
-        title.value = t(route.meta.title, templateData);
-      } else {
-        title.value = process.env.PRODUCTNAME;
-      }
-    });
 
     return {
       app,

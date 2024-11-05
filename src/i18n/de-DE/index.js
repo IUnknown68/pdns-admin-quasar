@@ -3,7 +3,8 @@ import zone from 'domain/zone/i18n/de-DE';
 import record from 'domain/record/i18n/de-DE';
 
 export default {
-  appTitle: 'PowerDNS',
+  // Should match productName in package.json
+  appTitle: 'PowerDNS Admin',
   version: 'Version',
   label: {
     menu: 'Menu',
